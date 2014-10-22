@@ -1,0 +1,18 @@
+AsciiIdentifiers:
+  Enabled: false
+
+AsciiComments:
+  Enabled: false
+
+AccessorMethodName:
+  Enabled: false
+
+LineLength:
+  Max: 99
+
+Style/FileName:
+  Enabled: false
+
+AllCops:
+  Excludes:
+    - 'Guardfile'
