@@ -51,8 +51,26 @@ class EmojidexStaticCollector
   end
 
   def _write_emoji(path, collection, size, code_type)
-    converter = Emojidex::Converter.new(sizes: [converting: size], destination: path,
+    converter = Emojidex::Converter.new(sizes: {working: size}, destination: path,
                                        noisy: true)
     converter.rasterize_collection collection
+
+    _rename_files(path, collection, code_type)
+  end
+
+  def _rename_files(path, collection, code_type)
+    collection.each do |emoji|
+      case code_type
+        when :ja then
+          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code_ja}.png"
+        when :moji then
+          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.moji}.png"
+        when :en
+          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
+        when :char
+          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.moji}.png"
+        end
+    end
+    FileUtils.rm_rf "#{path}/working/"
   end
 end
