@@ -13,7 +13,6 @@ describe EmojidexStaticCollector do
 
   describe '.generate' do
     it 'generates a collection' do
-      # binding.pry
       collector.generate(@tmpdir + '/emojidex', 512)
       expect(File.exist?(@tmpdir + '/emojidex/')).to be_truthy
     end

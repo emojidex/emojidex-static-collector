@@ -1,3 +1,23 @@
 #!/usr/bin/env ruby
+require 'optparse'
+require 'fileutils'
+require_relative '../lib/emojidex_static_collector'
 
-puts '⊂ em😜 jidex Static Collector⊃ '
+puts '⊂ em😜 jidex Static Collector⊃'
+
+# s:size, t:type, o:output
+params = ARGV.getopts('s:t:o:', 'utf-only', 'clean-cache')
+
+# Set params.
+params['s'] = '256' if params['s'].nil?
+params['t'] = 'en' if params['t'].nil?
+params['o'] = './' if params['o'].nil?
+
+# Create folder.
+out_dir = File.expand_path(params['o'], __FILE__)
+FileUtils.mkdir_p(out_dir) if Dir.exist?(out_dir)
+
+# Generate
+collector = EmojidexStaticCollector.new
+collector.generate(params['o'], params['s'].to_i, params['utf-only'],
+                   params['t'].to_sym, params['clean-cache'])
