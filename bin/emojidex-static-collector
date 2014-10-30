@@ -6,18 +6,32 @@ require_relative '../lib/emojidex_static_collector'
 puts '⊂ em😜 jidex Static Collector⊃'
 
 # s:size, t:type, o:output
-params = ARGV.getopts('s:t:o:', 'utf-only', 'clean-cache')
+params = ARGV.getopts('s:t:o:h', 'utf-only', 'clean-cache')
 
 # Set params.
 params['s'] = '256' if params['s'].nil?
 params['t'] = 'en' if params['t'].nil?
 params['o'] = './' if params['o'].nil?
+params['h'] = false if params['h'].nil?
 
-# Create folder.
-out_dir = File.expand_path(params['o'], __FILE__)
-FileUtils.mkdir_p(out_dir) if Dir.exist?(out_dir)
+if params['h']
+  puts "Usage:\n" \
+    "-h    help\n" \
+    "-o    output path [defaults to current path \"./\"]\n" \
+    "-s    size [defaults to \"256\"]\n" \
+    "-t    type:\n" \
+    "       \"en\" (standard English codes)\n" \
+    "       \"ja\" (Japanese codes)\n" \
+    "       \"char\" (raw character codes)\n" \
+    "       \"moji\" (moji code (:char with Japanese category directories))\n" \
+    "--utf-only    UTF/Unicode only (does not export Extended)" \
+else
+  # Create folder.
+  out_dir = File.expand_path(params['o'], __FILE__)
+  FileUtils.mkdir_p(out_dir) if Dir.exist?(out_dir)
 
-# Generate
-collector = EmojidexStaticCollector.new
-collector.generate(params['o'], params['s'].to_i, params['utf-only'],
-                   params['t'].to_sym, params['clean-cache'])
+  # Generate
+  collector = EmojidexStaticCollector.new
+  collector.generate(params['o'], params['s'].to_i, params['utf-only'],
+                     params['t'].to_sym)
+end

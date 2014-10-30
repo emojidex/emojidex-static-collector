@@ -21,7 +21,7 @@ class EmojidexStaticCollector
   #     :en (standard English codes)
   #     :ja (Japanese codes)
   #     :char (raw character codes)
-  #     :moji (moji code (:char with Japanese category directories)
+  #     :moji (moji code (:char with Japanese category directories))
   def generate(path = './', size = 64, utf_only = false, code_type = :en, clean_cache = true)
     cache_dir = File.join(path, '.cache')
     @utf.cache!(cache_path: cache_dir, formats: [:svg])
