@@ -28,5 +28,11 @@ describe EmojidexStaticCollector do
     it 'generates a collection using moji character codes' do
       expect(collector.generate(@tmpdir + '/moji', 8, true, :moji)).to be_truthy
     end
+
+    it 'generates a collection of UTF only, extended emoji is not exist' do
+      collector.generate(@tmpdir + '/UTF_only', 8, true, :en)
+      expect(File.exist?(@tmpdir + '/UTF_only/Faces/angry.png')).to be_truthy
+      expect(File.exist?(@tmpdir + '/UTF_only/Faces/angry(bk).png')).to be_falsey
+    end
   end
 end
