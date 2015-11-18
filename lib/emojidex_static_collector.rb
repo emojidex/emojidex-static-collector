@@ -1,15 +1,15 @@
 require 'emojidex-vectors'
 require 'emojidex_converter'
-require 'emojidex/categories'
+require 'emojidex/data/categories'
 
 require 'fileutils'
 
 # Generates static collections of emojidex assets
 class EmojidexStaticCollector
   def initialize
-    @utf = Emojidex::UTF.new
-    @extended = Emojidex::Extended.new
-    @categories = Emojidex::Categories.new
+    @utf = Emojidex::Data::UTF.new
+    @extended = Emojidex::Data::Extended.new
+    @categories = Emojidex::Data::Categories.new
   end
 
   # Generates a static collection
@@ -26,7 +26,7 @@ class EmojidexStaticCollector
     cache_dir = File.join(path, '.cache')
     @utf.cache!(cache_path: cache_dir, formats: [:svg])
     @extended.cache!(cache_path: cache_dir, formats: [:svg]) unless utf_only
-    collection = Emojidex::Collection.new(nil, cache_dir)
+    collection = Emojidex::Data::Collection.new(nil, cache_dir)
     _generate_categories(collection, path, size, utf_only, code_type)
     FileUtils.rm_rf(cache_dir) if clean_cache
   end

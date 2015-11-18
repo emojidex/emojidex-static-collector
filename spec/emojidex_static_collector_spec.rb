@@ -32,7 +32,7 @@ describe EmojidexStaticCollector do
     it 'generates a collection of UTF only, extended emoji is not exist' do
       collector.generate(@tmpdir + '/UTF_only', 8, true, :en)
       expect(File.exist?(@tmpdir + '/UTF_only/Faces/angry.png')).to be_truthy
-      expect(File.exist?(@tmpdir + '/UTF_only/Faces/angry(bk).png')).to be_falsey
+      expect(File.exist?(@tmpdir + '/UTF_only/Faces/angry_face(smiley).png')).to be_falsey
     end
   end
 end
