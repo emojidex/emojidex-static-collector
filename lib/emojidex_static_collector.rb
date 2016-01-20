@@ -1,6 +1,8 @@
 require 'emojidex-vectors'
 require 'emojidex_converter'
 require 'emojidex/data/categories'
+require 'emojidex/data/utf'
+require 'emojidex/data/extended'
 
 require 'fileutils'
 
@@ -26,7 +28,7 @@ class EmojidexStaticCollector
     cache_dir = File.join(path, '.cache')
     @utf.cache!(cache_path: cache_dir, formats: [:svg])
     @extended.cache!(cache_path: cache_dir, formats: [:svg]) unless utf_only
-    collection = Emojidex::Data::Collection.new(nil, cache_dir)
+    collection = Emojidex::Data::Collection.new(local_load_path: "#{cache_dir}/emoji")
     _generate_categories(collection, path, size, utf_only, code_type)
     FileUtils.rm_rf(cache_dir) if clean_cache
   end
