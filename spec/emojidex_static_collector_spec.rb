@@ -17,10 +17,6 @@ describe EmojidexStaticCollector do
       expect(File.exist?(@tmpdir + '/emojidex/')).to be_truthy
     end
 
-    it 'generates a collection of UTF only' do
-      expect(collector.generate(@tmpdir + '/UTF', 512, false)).to be_truthy
-    end
-
     it '日本語のコードを使ってコレクションを作成する' do
       expect(collector.generate(@tmpdir + '/日本語', 8, true, :ja)).to be_truthy
     end
@@ -29,10 +25,16 @@ describe EmojidexStaticCollector do
       expect(collector.generate(@tmpdir + '/moji', 8, true, :moji)).to be_truthy
     end
 
-    it 'generates a collection of UTF only, extended emoji is not exist' do
+    it 'generates a collection of UTF only, extended emoji should not be included' do
       collector.generate(@tmpdir + '/UTF_only', 8, true, :en)
       expect(File.exist?(@tmpdir + '/UTF_only/Faces/angry.png')).to be_truthy
-      expect(File.exist?(@tmpdir + '/UTF_only/Faces/angry(bk).png')).to be_falsey
+      expect(File.exist?(@tmpdir + '/UTF_only/Abstract/shit.png')).to be_falsey
+    end
+
+    it 'generates a collection, not sorted into categories, with char codes for file names' do
+      collector.generate(@tmpdir + '/uncategorized_charcodes', 300, false, :char, false)
+      expect(File.exist?(@tmpdir + '/uncategorized_charcodes/00ae.png')).to be_truthy
+      expect(File.exist?(@tmpdir + '/uncategorized_charcodes/0033-20e3.png')).to be_truthy
     end
   end
 end

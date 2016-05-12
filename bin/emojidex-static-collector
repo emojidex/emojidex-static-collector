@@ -3,10 +3,10 @@ require 'optparse'
 require 'fileutils'
 require_relative '../lib/emojidex_static_collector'
 
-puts '⊂ em😜 jidex Static Collector⊃'
+puts '⊂ em😜jidex Static Collector⊃'
 
 # s:size, t:type, o:output
-params = ARGV.getopts('s:t:o:h', 'utf-only', 'clean-cache')
+params = ARGV.getopts('s:t:o:h', 'utf-only', 'uncategorized', 'clean-cache')
 
 # Set params.
 params['s'] = '256' if params['s'].nil?
@@ -23,8 +23,10 @@ if params['h']
     "       \"en\" (standard English codes)\n" \
     "       \"ja\" (Japanese codes)\n" \
     "       \"char\" (raw character codes)\n" \
-    "       \"moji\" (moji code (:char with Japanese category directories))\n" \
+    "       \"moji\" (moji code (character code with Japanese category directories))\n" \
+    "       \"unicode\" (unicode/utf code)\n" \
     "--utf-only    UTF/Unicode only (does not export Extended)" \
+    "--uncategorized    doesn't separate emoji into categorized folders" \
 else
   # Create folder.
   out_dir = File.expand_path(params['o'], __FILE__)
@@ -33,5 +35,5 @@ else
   # Generate
   collector = EmojidexStaticCollector.new
   collector.generate(params['o'], params['s'].to_i, params['utf-only'],
-                     params['t'].to_sym)
+                     params['t'].to_sym, params['uncategorized'])
 end
