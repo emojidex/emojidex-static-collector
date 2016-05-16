@@ -25,10 +25,11 @@ class EmojidexStaticCollector
   #     :ja (Japanese codes)
   #     :char (raw character codes)
   #     :moji (moji code (:char with Japanese category directories))
+  #     :unicode (unicode codes as file names)
   def generate(path = './', size = 64, utf_only = false, code_type = :en, categorized = true, clean_cache = true)
     cache_dir = File.join(path, '.cache')
-    @utf.cache!(cache_path: cache_dir, formats: [:svg])
-    @extended.cache!(cache_path: cache_dir, formats: [:svg]) unless utf_only
+    @utf.cache(cache_path: cache_dir, formats: [:svg])
+    @extended.cache(cache_path: cache_dir, formats: [:svg]) unless utf_only
     collection = Emojidex::Data::Collection.new(local_load_path: "#{cache_dir}/emoji")
     if categorized
       _generate_categories(collection, path, size, code_type)
@@ -63,7 +64,7 @@ class EmojidexStaticCollector
     cat_path = ''
     if code_type == :ja || code_type == :moji
       cat_path = File.join(path, category.ja)
-    elsif code_type == :en || code_type == :char
+    elsif code_type == :en || code_type == :char || :unicode
       cat_path = File.join(path, category.en)
     end
     cat_path
@@ -80,25 +81,26 @@ class EmojidexStaticCollector
   def _rename_files(path, collection, code_type)
     collection.each do |emoji|
       case code_type
-      when :ja then FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code_ja}.png"
+      when :ja then FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code_ja}.png"
       when :moji
-        if emoji.moji.nil?
-          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
+        if emoji.moji.nil? || emoji.moji == ""
+          FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
         else
-          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.moji}.png"
+          FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.moji}.png"
         end
-      when :en then FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
+      when :en then FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
       when :char
-        if emoji.moji.nil?
-          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
+        if emoji.moji.nil? || emoji.moji == ""
+          FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
         else
-          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.moji}.png"
+          FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.moji}.png"
         end
       when :unicode
-        if emoji.unicode.nil?
-          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
+        puts "Transfering #{emoji.code} to unicode #{emoji.unicode}"
+        if emoji.unicode.nil? || emoji.unicode == ""
+          FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
         else
-          FileUtils.mv "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.unicode}.png"
+          FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.unicode.to_s}.png"
         end
       end
     end
