@@ -96,7 +96,6 @@ class EmojidexStaticCollector
           FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.moji}.png"
         end
       when :unicode
-        puts "Transfering #{emoji.code} to unicode #{emoji.unicode}"
         if emoji.unicode.nil? || emoji.unicode == ""
           FileUtils.cp "#{path}/working/#{emoji.code}.png", "#{path}/#{emoji.code}.png"
         else

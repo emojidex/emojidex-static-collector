@@ -2,8 +2,6 @@ source 'https://rubygems.org'
 
 gemspec
 
-gem 'emojidex', path: '../emojidex'
-
 group :development do
   gem 'rspec'
   gem 'rubocop'
