@@ -9,8 +9,8 @@ require 'fileutils'
 # Generates static collections of emojidex assets
 class EmojidexStaticCollector
   def initialize
-    @utf = Emojidex::Data::UTF.new
-    @extended = Emojidex::Data::Extended.new
+    @utf = Emojidex::Data::UTF.new(r18: true)
+    @extended = Emojidex::Data::Extended.new(r18: true)
     @categories = Emojidex::Data::Categories.new
   end
 
@@ -30,7 +30,7 @@ class EmojidexStaticCollector
     cache_dir = File.join(path, '.cache')
     @utf.cache(cache_path: cache_dir, formats: [:svg])
     @extended.cache(cache_path: cache_dir, formats: [:svg]) unless utf_only
-    collection = Emojidex::Data::Collection.new(local_load_path: "#{cache_dir}/emoji")
+    collection = Emojidex::Data::Collection.new(local_load_path: "#{cache_dir}/emoji", r18: true)
     if categorized
       _generate_categories(collection, path, size, code_type)
     else
