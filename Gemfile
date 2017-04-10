@@ -2,6 +2,9 @@ source 'https://rubygems.org'
 
 gemspec
 
+#gem 'emojidex', path: '../emojidex'
+#gem 'emojidex-converter', path: '../emojidex-converter'
+
 group :development do
   gem 'rspec'
   gem 'rubocop'

@@ -42,7 +42,7 @@ describe EmojidexStaticCollector do
     it 'generates a collection, not sorted into categories, with unicode codes for file names' do
       collector.generate(@tmpdir + '/uncategorized_charcodes', 300, false, :unicode, false)
       expect(File.exist?(@tmpdir + '/uncategorized_charcodes/00ae.png')).to be_truthy
-      expect(File.exist?(@tmpdir + '/uncategorized_charcodes/0033-20e3.png')).to be_truthy
+      expect(File.exist?(@tmpdir + '/uncategorized_charcodes/0033-fe0f-20e3.png')).to be_truthy
       expect(File.exist?(@tmpdir + '/uncategorized_charcodes/shit.png')).to be_truthy
     end
   end
