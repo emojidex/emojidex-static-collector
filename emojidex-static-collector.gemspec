@@ -10,7 +10,7 @@ Gem::Specification.new do |s|
   s.email       = 'info@emojidex.com'
   s.files       = Dir.glob('lib/**/*.rb') +
                   Dir.glob('bin/**/*.rb') +
-                  ['emojidex-converter.gemspec']
+                  ['emojidex-static-collector.gemspec']
   s.require_paths = ['lib']
   s.bindir      = 'bin'
   s.executables << 'emojidex-static-collector'
