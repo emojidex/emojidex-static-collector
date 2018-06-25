@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'emojidex-static-collector'
-  s.version     = '0.3.1'
+  s.version     = '0.3.2'
   s.license     = 'emojiOL'
   s.summary     = 'Create static collections from emojidex assets'
   s.description = 'Generates PNG rasters from emojidex vectors in a ' \
@@ -16,7 +16,7 @@ Gem::Specification.new do |s|
   s.executables << 'emojidex-static-collector'
   s.homepage    = 'http://developer.emojidex.com'
 
-  s.add_dependency 'emojidex', '~> 0.5', '~> 0.5.0'
+  s.add_dependency 'emojidex', '~> 0.5', '~> 0.5.2'
   s.add_dependency 'emojidex-vectors', '~> 1.0'
-  s.add_dependency 'emojidex-converter', '~> 0.4', '~> 0.4.0'
+  s.add_dependency 'emojidex-converter', '~> 0.4', '~> 0.4.1'
 end
