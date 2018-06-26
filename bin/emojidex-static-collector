@@ -6,7 +6,7 @@ require_relative '../lib/emojidex_static_collector'
 puts '⊂ em😜🏼jidex Static Collector⊃'
 
 # s:size, t:type, o:output
-params = ARGV.getopts('s:t:o:h', 'utf-only', 'uncategorized', 'clean-cache')
+params = ARGV.getopts('s:t:o:h', 'utf-only', 'uncategorized', 'clean-cache', 'no-adult')
 
 # Set params.
 params['s'] = '256' if params['s'].nil?
