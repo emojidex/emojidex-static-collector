@@ -15,6 +15,13 @@ describe EmojidexStaticCollector do
     it 'generates a collection' do
       collector.generate(@tmpdir + '/emojidex', 512)
       expect(File.exist?(@tmpdir + '/emojidex/')).to be_truthy
+      expect(File.exist?(@tmpdir + '/emojidex/People/penis.png')).to be_truthy
+    end
+
+    it 'generates a collection without R-18 emoji' do
+      collector.generate(@tmpdir + '/emojidex_safe', 64, false, :en, true, true)
+      expect(File.exist?(@tmpdir + '/emojidex_safe/')).to be_truthy
+      expect(File.exist?(@tmpdir + '/emojidex_safe/People/penis.png')).to be_falsey
     end
 
     it '日本語のコードを使ってコレクションを作成する' do

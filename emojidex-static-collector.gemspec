@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name        = 'emojidex-static-collector'
-  s.version     = '0.3.2'
+  s.version     = '0.3.3'
   s.license     = 'emojiOL'
   s.summary     = 'Create static collections from emojidex assets'
   s.description = 'Generates PNG rasters from emojidex vectors in a ' \

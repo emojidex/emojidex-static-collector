@@ -26,7 +26,8 @@ if params['h']
     "       \"moji\" (moji code (character code with Japanese category directories))\n" \
     "       \"unicode\" (unicode/utf code)\n" \
     "--utf-only    UTF/Unicode only (does not export Extended)\n" \
-    "--uncategorized    doesn't separate emoji into categorized folders" \
+    "--uncategorized    doesn't separate emoji into categorized folders\n" \
+    "--no-adult   don't include adult/R-18 emoji"
 else
   # Create folder.
   out_dir = File.expand_path(params['o'], __FILE__)
@@ -35,5 +36,5 @@ else
   # Generate
   collector = EmojidexStaticCollector.new
   collector.generate(params['o'], params['s'].to_i, params['utf-only'],
-                     params['t'].to_sym, !(params['uncategorized']))
+                     params['t'].to_sym, !(params['uncategorized']), params['no-adult'])
 end
